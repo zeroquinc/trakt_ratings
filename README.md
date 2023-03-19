@@ -33,3 +33,6 @@ Season Ratings:
 
 ![image](https://user-images.githubusercontent.com/39315068/226148288-b1903331-59a0-4fea-8040-fb286642a369.png)
 
+# To Do
+
+In the future I will also fix the movie part because that is still a bit plain and also gonna try to add a Episode / Season / Movie description in the embed.
