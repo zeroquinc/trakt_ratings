@@ -17,9 +17,11 @@ Make sure you fill in the following values:
 
 Make sure you have python3 installed with pip3 and the `requests` module.
 
-Make a cron job depending on the `ratings_time`.
+Make a cron job depending on the `ratings_time`. Make sure the cron job and this value are always the same.
 
 For example: `*/30 * * * * python3 /opt/scripts/trakt_ratings.py`
+
+The above code runs a cronjob every 30 minutes.
 
 # Examples
 
