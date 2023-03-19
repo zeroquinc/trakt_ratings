@@ -13,6 +13,16 @@ Make sure you fill in the following values:
 
 `api_key` = TMDB API Key
 
+# How to Run
+
+Make sure you have python3 installed with pip3 and the `requests` module.
+
+Make a cron job depending on the `ratings_time`.
+
+For example: `*/30 * * * * python3 /opt/scripts/trakt_ratings.py`
+
+# Examples
+
 Episode Ratings:
 
 ![image](https://user-images.githubusercontent.com/39315068/226148315-8e217d7d-d2fd-4d23-834a-d2d417fcded8.png)
