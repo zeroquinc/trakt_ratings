@@ -1,5 +1,7 @@
 # Trakt Ratings for Discord
-Embedded Discord Trakt Ratings
+Embedded Discord Trakt Ratings with clickable links.
+
+# Explanation
 
 Make sure you fill in the following values:
 
