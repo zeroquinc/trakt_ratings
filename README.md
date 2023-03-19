@@ -11,7 +11,7 @@ Make sure you fill in the following values:
 
 `client_id` = Trakt client ID
 
-`api_key` = TMDB API Key
+`api_key` = TMDB API Key for posters in the thumbnail
 
 # How to Run
 
