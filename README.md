@@ -1,5 +1,5 @@
 # Trakt Ratings for Discord
-Embedded Discord Trakt Ratings with clickable links.
+Embedded Discord Trakt Ratings with clickable links and the plot / overview in a spoiler tag.
 
 # Examples
 
