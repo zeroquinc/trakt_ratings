@@ -64,6 +64,14 @@ def send_episode_notification(title, description, episode_slug, season, episode_
     }
     episode_response = requests.get(f"https://api.trakt.tv/shows/{episode_slug}/seasons/{season}/episodes/{episode_number}", headers=headers, params=episode_params)
     episode_data = json.loads(episode_response.text)
+    
+    # Get the overview for the episode data
+    if episode_data.get('overview'):
+        overview = episode_data['overview']
+        spoiler = "||"
+    else:
+        overview = "No overview available"
+        spoiler = ""
 
     # Create embedded notification
     author_name = "Trakt: Episode Rated"
@@ -94,7 +102,7 @@ def send_episode_notification(title, description, episode_slug, season, episode_
             },
             {
                 "name": "Overview",
-                "value": overview,
+                "value": f"{spoiler}{overview}{spoiler}",
                 "inline": True
             }
         ]
@@ -236,7 +244,7 @@ def send_movie_notification(title, description, movie_title, movie_year, trakt_u
     movie_response = requests.get(f"https://api.trakt.tv/movies/{movie_slug}", headers=headers, params=movie_params)
     movie_data = json.loads(movie_response.text)
         
-    # Get the overview for the filtered season data
+    # Get the overview for the movie data
     if movie_data.get('overview'):
         overview = movie_data['overview']
         spoiler = "||"
