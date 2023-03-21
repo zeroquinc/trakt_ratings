@@ -38,7 +38,3 @@ Make a cron job depending on the `ratings_time`. Make sure the cron job and this
 For example: `*/30 * * * * python3 /opt/scripts/trakt_ratings.py`
 
 The above code runs a cronjob every 30 minutes.
-
-# To Do
-
-In the future I will also fix the movie part because that is still a bit plain and also gonna try to add a Episode / Season / Movie description in the embed.
