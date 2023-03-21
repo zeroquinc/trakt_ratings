@@ -37,7 +37,7 @@ Season Ratings:
 
 Movie Ratings:
 
-![image](https://user-images.githubusercontent.com/39315068/226563974-53cfd4fb-4d94-4474-9143-9ed248c7dc51.png)
+![image](https://user-images.githubusercontent.com/39315068/226564346-ebb2c752-a88a-4b9d-9df4-bf2587e8ba0a.png)
 
 # To Do
 
