@@ -29,11 +29,11 @@ The above code runs a cronjob every 30 minutes.
 
 Episode Ratings:
 
-![image](https://user-images.githubusercontent.com/39315068/226563851-7bcfd204-9f73-467e-b960-c06bbba5edd9.png)
+![image](https://user-images.githubusercontent.com/39315068/226564147-2b8a7c95-de18-4acc-ab2c-919163e61ef2.png)
 
 Season Ratings:
 
-![image](https://user-images.githubusercontent.com/39315068/226563915-f3bb6632-4cbf-4785-922c-c08c055372a2.png)
+![image](https://user-images.githubusercontent.com/39315068/226564205-25a8f168-0512-4788-8f25-e50625ccfbf9.png)
 
 Movie Ratings:
 
