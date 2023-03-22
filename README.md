@@ -1,5 +1,6 @@
 # Trakt Ratings for Discord
-Embedded Discord Trakt Ratings with clickable links and the plot / overview in a spoiler tag.
+Embedded Discord Trakt Ratings with clickable links to Trakt.
+It fetches the API every minute and checks for new ratings.
 
 # Explanation
 
@@ -12,9 +13,9 @@ Make sure you fill in the following values in the `config.json` file:
 | `client_id` | Your Trakt Client ID |
 | `api_key` | Your TMDB API key |
 | `timezone` | Your timezone |
-| `episode_spoiler` | true or false |
-| `season_spoiler` | true or false |
-| `movie_spoiler` | true or false |
+| `episode_spoiler` | Spoiler tag for episode overview |
+| `season_spoiler` | Spoiler tag for season overview |
+| `movie_spoiler` | Spoiler tag for movie overview |
 
 # Examples
 
