@@ -5,15 +5,15 @@ Embedded Discord Trakt Ratings with clickable links and the plot / overview in a
 
 Episode Ratings:
 
-![image](https://user-images.githubusercontent.com/39315068/226564147-2b8a7c95-de18-4acc-ab2c-919163e61ef2.png)
+![image](https://user-images.githubusercontent.com/39315068/227022797-2844f122-e7e8-4af2-9116-c331ddfea860.png)
 
 Season Ratings:
 
-![image](https://user-images.githubusercontent.com/39315068/226564205-25a8f168-0512-4788-8f25-e50625ccfbf9.png)
+![image](https://user-images.githubusercontent.com/39315068/227022956-f7de16fa-c8a7-4a5d-9308-ae32a87d1e61.png)
 
 Movie Ratings:
 
-![image](https://user-images.githubusercontent.com/39315068/226564346-ebb2c752-a88a-4b9d-9df4-bf2587e8ba0a.png)
+![image](https://user-images.githubusercontent.com/39315068/227023093-3601b075-67ea-4a73-b7dc-9c7beb2e439c.png)
 
 # Explanation
 
@@ -23,8 +23,6 @@ Make sure you fill in the following values:
 
 `trakt_username` = Your Trakt Username
 
-`ratings_time` = The times you want it fetch the Trakt API for ratings in minutes
-
 `client_id` = Trakt client ID
 
 `api_key` = TMDB API Key for posters in the thumbnail
@@ -33,8 +31,18 @@ Make sure you fill in the following values:
 
 Make sure you have python3 installed with pip3 and the `requests` module.
 
-Make a cron job depending on the `ratings_time`. Make sure the cron job and this value are always the same.
+You can for example create a service file and let it run in the background.
 
-For example: `*/30 * * * * python3 /opt/scripts/trakt_ratings.py`
+```[Unit]
+Description=Trakt Ratings
+After=network.target
 
-The above code runs a cronjob every 30 minutes.
+[Service]
+Type=simple
+User=username
+ExecStart=/usr/bin/python3 /opt/scripts/trakt_ratings.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
