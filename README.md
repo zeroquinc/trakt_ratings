@@ -1,6 +1,21 @@
 # Trakt Ratings for Discord
 Embedded Discord Trakt Ratings with clickable links and the plot / overview in a spoiler tag.
 
+# Explanation
+
+Make sure you fill in the following values in the `config.json` file:
+
+| Command | Description |
+| --- | --- |
+| `webhook_url` | The Discord webhook url |
+| `trakt_username` | Your Trakt username |
+| `client_id` | Your Trakt Client ID |
+| `api_key` | Your TMDB API key |
+| `timezone` | Your timezone |
+| `episode_spoiler` | true or false |
+| `season_spoiler` | true or false |
+| `movie_spoiler` | true or false |
+
 # Examples
 
 Episode Ratings:
@@ -14,18 +29,6 @@ Season Ratings:
 Movie Ratings:
 
 ![image](https://user-images.githubusercontent.com/39315068/227023093-3601b075-67ea-4a73-b7dc-9c7beb2e439c.png)
-
-# Explanation
-
-Make sure you fill in the following values:
-
-`webhook_url` = Your Discord Webhook URL
-
-`trakt_username` = Your Trakt Username
-
-`client_id` = Trakt client ID
-
-`api_key` = TMDB API Key for posters in the thumbnail
 
 # How to Run
 
