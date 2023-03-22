@@ -5,28 +5,41 @@ from datetime import datetime, timedelta
 import pytz
 from dateutil import parser
 
+# Load configuration from config.json file
+config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.json')
+with open(config_path, 'r') as f:
+    config = json.load(f)
+
 # Discord Webhook URL
-webhook_url = ""
+webhook_url = config['webhook_url']
 
 # Trakt Username
-trakt_username = ""
+trakt_username = config['trakt_username']
+
+# Trakt client ID
+client_id = config['client_id']
+
+# TMDB API endpoint URLs
+search_url = config['search_url']
+
+# TMDB API key
+api_key = config['api_key']
+
+# Timezone
+timezone = pytz.timezone(config['timezone'])
+
+# Spoiler
+episode_spoiler = config['episode_spoiler']
+season_spoiler = config['season_spoiler']
+movie_spoiler = config['movie_spoiler']
+
+# TMDB API endpoint URLs
+search_url = "https://api.themoviedb.org/3/search/multi"
 
 # Trakt API endpoint URLs
 episode_ratings_url = f"https://api.trakt.tv/users/{trakt_username}/ratings/episodes"
 movie_ratings_url = f"https://api.trakt.tv/users/{trakt_username}/ratings/movies"
 season_ratings_url = f"https://api.trakt.tv/users/{trakt_username}/ratings/seasons"
-
-# Trakt client ID
-client_id = ""
-
-# TMDB API endpoint URLs
-search_url = "https://api.themoviedb.org/3/search/multi"
-
-# TMDB API key
-api_key = ""
-
-# Timezone
-timezone = pytz.timezone('Europe/Amsterdam')
 
 def send_episode_notification(title, description, episode_slug, season, episode_number, trakt_url, show_title, tmdb_id):
     # Search for show or movie by title
@@ -65,7 +78,7 @@ def send_episode_notification(title, description, episode_slug, season, episode_
     # Get the overview for the episode data
     if episode_data.get('overview'):
         overview = episode_data['overview']
-        spoiler = "||"
+        spoiler = "||" if episode_spoiler else ""  # Set spoiler based on discord_spoiler value
     else:
         overview = "No overview available"
         spoiler = ""
@@ -156,7 +169,7 @@ def send_season_notification(title, description, trakt_url, show_title, tmdb_id,
     # Get the overview for the filtered season data
     if filtered_season_data and filtered_season_data[0].get('overview'):
         overview = filtered_season_data[0]['overview']
-        spoiler = "||"
+        spoiler = "||" if season_spoiler else ""  # Set spoiler based on discord_spoiler value
     else:
         overview = "No overview available"
         spoiler = ""
@@ -240,11 +253,11 @@ def send_movie_notification(title, description, movie_title, movie_year, trakt_u
     }
     movie_response = requests.get(f"https://api.trakt.tv/movies/{movie_slug}", headers=headers, params=movie_params)
     movie_data = json.loads(movie_response.text)
-        
+    
     # Get the overview for the movie data
     if movie_data.get('overview'):
         overview = movie_data['overview']
-        spoiler = "||"
+        spoiler = "||" if movie_spoiler else ""  # Set spoiler based on discord_spoiler value
     else:
         overview = "No overview available"
         spoiler = ""
