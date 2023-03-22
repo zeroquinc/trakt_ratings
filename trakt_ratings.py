@@ -11,9 +11,6 @@ webhook_url = ""
 # Trakt Username
 trakt_username = ""
 
-# How many times it needs to check for ratings in minutes
-ratings_time = 
-
 # Trakt API endpoint URLs
 episode_ratings_url = f"https://api.trakt.tv/users/{trakt_username}/ratings/episodes"
 movie_ratings_url = f"https://api.trakt.tv/users/{trakt_username}/ratings/movies"
@@ -82,7 +79,7 @@ def send_episode_notification(title, description, episode_slug, season, episode_
         "timestamp": datetime.utcnow().isoformat(),
         "author": {
             "name": author_name,
-            "icon_url": "https://i.imgur.com/Oi3G5Ck.png"
+            "icon_url": "https://i.imgur.com/poGtHrf.png"
         },
         "fields": [
             {
@@ -173,7 +170,7 @@ def send_season_notification(title, description, trakt_url, show_title, tmdb_id,
         "timestamp": datetime.utcnow().isoformat(),
         "author": {
             "name": author_name,
-            "icon_url": "https://i.imgur.com/Oi3G5Ck.png"
+            "icon_url": "https://i.imgur.com/poGtHrf.png"
         },
         "fields": [
             {
@@ -261,7 +258,7 @@ def send_movie_notification(title, description, movie_title, movie_year, trakt_u
         "timestamp": datetime.utcnow().isoformat(),
         "author": {
             "name": author_name,
-            "icon_url": "https://i.imgur.com/Oi3G5Ck.png"
+            "icon_url": "https://i.imgur.com/fjWQwef.png"
         },
         "fields": [
             {
@@ -304,7 +301,7 @@ def get_recent_ratings():
 
     # Calculate start time and end time for ratings search
     end_time = current_time.strftime("%Y-%m-%dT%H:%M:%S.000Z")
-    start_time = (current_time - timedelta(minutes=(ratings_time))).strftime("%Y-%m-%dT%H:%M:%S.000Z")
+    start_time = (current_time - timedelta(minutes=1)).strftime("%Y-%m-%dT%H:%M:%S.000Z")
 
     # Add headers for Trakt API authorization
     headers = {
@@ -338,7 +335,7 @@ def get_recent_ratings():
     episode_data = json.loads(episode_response.text)
     for episode in episode_data:
         rating_time = parser.parse(episode["rated_at"]).astimezone(timezone)
-        if current_time - rating_time <= timedelta(minutes=(ratings_time)):
+        if current_time - rating_time <= timedelta(minutes=1):
             show_title = episode["show"]["title"]
             show_year = episode["show"]["year"]
             season = episode["episode"]["season"]
@@ -356,7 +353,7 @@ def get_recent_ratings():
     season_data = json.loads(season_response.text)
     for season in season_data:
         rating_time = parser.parse(season["rated_at"]).astimezone(timezone)
-        if current_time - rating_time <= timedelta(minutes=(ratings_time)):
+        if current_time - rating_time <= timedelta(minutes=1):
             show_title = season["show"]["title"]
             season_slug = season["show"]["ids"]["slug"]
             show_year = season["show"]["year"]
@@ -371,11 +368,11 @@ def get_recent_ratings():
     movie_data = json.loads(movie_response.text)
     for movie in movie_data:
         rating_time = parser.parse(movie["rated_at"]).astimezone(timezone)
-        if current_time - rating_time <= timedelta(minutes=(ratings_time)):
+        if current_time - rating_time <= timedelta(minutes=1):
             movie_title = movie["movie"]["title"]
             description = f"{movie['rating']}"
             movie_year = movie["movie"]["year"]
-            title = f"{movie_title} - {movie_year}"
+            title = f"{movie_title} ({movie_year})"
             movie_slug = movie["movie"]["ids"]["slug"]
             trakt_url = f"https://trakt.tv/movies/{movie_slug}"
             tmdb_id = movie["movie"]["ids"]["tmdb"]
@@ -384,4 +381,4 @@ def get_recent_ratings():
 # Fetch recent ratings and send notifications
 while True:
     get_recent_ratings()
-    exit()
+    time.sleep(60)
