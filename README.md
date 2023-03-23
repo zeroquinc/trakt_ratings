@@ -1,5 +1,5 @@
 # Trakt Ratings for Discord
-Embedded Discord Trakt Ratings with clickable links to Trakt.
+Embedded Discord Trakt Ratings with clickable links to Trakt and IMDB.
 It fetches the API every minute and checks for new ratings.
 
 # Configuration
