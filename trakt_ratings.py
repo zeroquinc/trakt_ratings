@@ -39,7 +39,8 @@ episode_ratings_url = f"https://api.trakt.tv/users/{trakt_username}/ratings/epis
 movie_ratings_url = f"https://api.trakt.tv/users/{trakt_username}/ratings/movies"
 season_ratings_url = f"https://api.trakt.tv/users/{trakt_username}/ratings/seasons"
 
-def send_episode_notification(title, description, episode_slug, season, episode_number, trakt_url, show_title, tmdb_id):
+def send_episode_notification(title, description, episode_slug, season, episode_number, trakt_url, show_title, tmdb_id, imdb_id):
+    
     # Search for show or movie by title
     search_params = {
         "api_key": api_key,
@@ -76,11 +77,11 @@ def send_episode_notification(title, description, episode_slug, season, episode_
     # Get the overview for the episode data
     if episode_data.get('overview'):
         overview = episode_data['overview']
-        spoiler = "||" if episode_spoiler else ""  # Set spoiler based on discord_spoiler value
+        spoiler = "||" if episode_spoiler else ""  # Set spoiler based on episode_spoiler value
     else:
         overview = "No overview available"
         spoiler = ""
-
+        
     # Create embedded notification
     author_name = "Trakt: Episode Rated"
 
@@ -105,7 +106,7 @@ def send_episode_notification(title, description, episode_slug, season, episode_
             },
             {
                 "name": "Details",
-                "value": f"[Trakt]({trakt_url})",
+                "value": f"[Trakt]({trakt_url}) / [IMDb](https://imdb.com/title/{imdb_id})",
                 "inline": True
             },
             {
@@ -127,7 +128,8 @@ def send_episode_notification(title, description, episode_slug, season, episode_
     # Send notification to Discord webhook
     requests.post(webhook_url, json=payload)
 
-def send_season_notification(title, description, trakt_url, show_title, tmdb_id, season_number, season_slug):
+def send_season_notification(title, description, trakt_url, show_title, tmdb_id, season_number, season_slug, imdb_id):
+    
     # Search for show or movie by title
     search_params = {
         "api_key": api_key,
@@ -196,7 +198,7 @@ def send_season_notification(title, description, trakt_url, show_title, tmdb_id,
             },
             {
                 "name": "Details",
-                "value": f"[Trakt]({trakt_url})",
+                "value": f"[Trakt]({trakt_url})  / [IMDb](https://imdb.com/title/{imdb_id}/episodes?season={season_number})",
                 "inline": True
             },
             {
@@ -218,7 +220,8 @@ def send_season_notification(title, description, trakt_url, show_title, tmdb_id,
     # Send notification to Discord webhook
     requests.post(webhook_url, json=payload)
 
-def send_movie_notification(title, description, movie_title, movie_year, trakt_url, tmdb_id, movie_slug):
+def send_movie_notification(title, description, movie_title, movie_year, trakt_url, tmdb_id, movie_slug, imdb_id):
+    
     # Search for show or movie by title
     search_params = {
         "api_key": api_key,
@@ -284,7 +287,7 @@ def send_movie_notification(title, description, movie_title, movie_year, trakt_u
             },
             {
                 "name": "Details",
-                "value": f"[Trakt]({trakt_url})",
+                "value": f"[Trakt]({trakt_url}) / [IMDb](https://imdb.com/title/{imdb_id})",
                 "inline": True
             },
             {
@@ -307,6 +310,7 @@ def send_movie_notification(title, description, movie_title, movie_year, trakt_u
     requests.post(webhook_url, json=payload)
 
 def get_recent_ratings():
+    
     # Get current time in Amsterdam timezone
     current_time = datetime.now(timezone)
 
@@ -358,7 +362,8 @@ def get_recent_ratings():
             description = f"{episode['rating']}"
             trakt_url = f"https://trakt.tv/shows/{episode_slug}/seasons/{season}/episodes/{episode_number}"
             tmdb_id = episode["show"]["ids"]["tmdb"]
-            send_episode_notification(title, description, episode_slug, season, episode_number, trakt_url, show_title, tmdb_id)
+            imdb_id = episode["episode"]["ids"]["imdb"]
+            send_episode_notification(title, description, episode_slug, season, episode_number, trakt_url, show_title, tmdb_id, imdb_id)
             
     # Parse JSON response for season ratings
     season_data = json.loads(season_response.text)
@@ -372,8 +377,9 @@ def get_recent_ratings():
             title = f"{show_title} - Season {season_number}"
             description = season["rating"]
             trakt_url = f"https://trakt.tv/shows/{season_slug}/seasons/{season_number}"
+            imdb_id = season["show"]["ids"]["imdb"]
             tmdb_id = None # Not applicable for seasons
-            send_season_notification(title, description, trakt_url, show_title, tmdb_id, season_number, season_slug)
+            send_season_notification(title, description, trakt_url, show_title, tmdb_id, season_number, season_slug, imdb_id)
 
     # Parse JSON response for movie ratings
     movie_data = json.loads(movie_response.text)
@@ -387,7 +393,8 @@ def get_recent_ratings():
             movie_slug = movie["movie"]["ids"]["slug"]
             trakt_url = f"https://trakt.tv/movies/{movie_slug}"
             tmdb_id = movie["movie"]["ids"]["tmdb"]
-            send_movie_notification(title, description, movie_title, movie_year, trakt_url, tmdb_id, movie_slug)
+            imdb_id = movie["movie"]["ids"]["imdb"]
+            send_movie_notification(title, description, movie_title, movie_year, trakt_url, tmdb_id, movie_slug, imdb_id)
 
 # Fetch recent ratings and send notifications
 while True:
