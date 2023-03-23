@@ -1,3 +1,4 @@
+import os
 import requests
 import json
 import time
@@ -18,9 +19,6 @@ trakt_username = config['trakt_username']
 
 # Trakt client ID
 client_id = config['client_id']
-
-# TMDB API endpoint URLs
-search_url = config['search_url']
 
 # TMDB API key
 api_key = config['api_key']
