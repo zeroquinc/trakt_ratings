@@ -19,11 +19,11 @@ Make sure you fill in the following values in the `config.json` file:
 
 # Examples
 
-Episode Ratings:
+Episode Ratings
 
 ![image](https://user-images.githubusercontent.com/39315068/227069035-ba5b1324-3a90-41e6-a14e-b432ff75e7d3.png)
 
-Season Ratings:
+Season Ratings
 
 ![image](https://user-images.githubusercontent.com/39315068/227069005-5aa657f8-ffdb-4cc3-bc95-ca1dcf34c1a1.png)
 
