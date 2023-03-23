@@ -2,7 +2,7 @@
 Embedded Discord Trakt Ratings with clickable links to Trakt.
 It fetches the API every minute and checks for new ratings.
 
-# Explanation
+# Configuration
 
 Make sure you fill in the following values in the `config.json` file:
 
