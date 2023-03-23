@@ -33,7 +33,7 @@ Movie Ratings:
 
 # How to Run
 
-Make sure you have python3 installed with pip3 and the `requests` module.
+You can install the required packages with the command: `pip3 install -r requirements.txt`
 
 You can for example create a service file and let it run in the background.
 
