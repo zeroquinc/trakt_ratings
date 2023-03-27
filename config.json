@@ -4,7 +4,8 @@
     "client_id": "",
     "api_key": "",
     "timezone": "Europe/Amsterdam",
-    "episode_spoiler": true,
-    "season_spoiler": true,
-    "movie_spoiler": false
+    "episode_spoiler": false,
+    "season_spoiler": false,
+    "movie_spoiler": false,
+	"show_spoiler": false
 }
