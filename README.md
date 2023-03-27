@@ -13,11 +13,20 @@ Make sure you fill in the following values in the `config.json` file:
 | `client_id` | Your Trakt Client ID |
 | `api_key` | Your TMDB API key |
 | `timezone` | Your timezone |
+| `show_spoiler` | Spoiler tag for show overview |
 | `episode_spoiler` | Spoiler tag for episode overview |
 | `season_spoiler` | Spoiler tag for season overview |
 | `movie_spoiler` | Spoiler tag for movie overview |
 
 # Examples
+
+Movie Ratings
+
+![image](https://user-images.githubusercontent.com/39315068/227069058-76325a8b-f955-41d2-9ba5-63d4344c17f5.png)
+
+Show Ratings
+
+![image](https://user-images.githubusercontent.com/39315068/228052374-e85e37fa-d0ac-436a-9497-3851f185e4f7.png)
 
 Episode Ratings
 
@@ -26,10 +35,6 @@ Episode Ratings
 Season Ratings
 
 ![image](https://user-images.githubusercontent.com/39315068/227069005-5aa657f8-ffdb-4cc3-bc95-ca1dcf34c1a1.png)
-
-Movie Ratings
-
-![image](https://user-images.githubusercontent.com/39315068/227069058-76325a8b-f955-41d2-9ba5-63d4344c17f5.png)
 
 # How to Run
 
