@@ -22,19 +22,19 @@ Make sure you fill in the following values in the `config.json` file:
 
 Movie Ratings
 
-![image](https://user-images.githubusercontent.com/39315068/227069058-76325a8b-f955-41d2-9ba5-63d4344c17f5.png)
+![image](https://user-images.githubusercontent.com/39315068/228053186-0903077a-f612-412d-9c05-ef72608d9ca2.png)
 
 Show Ratings
 
-![image](https://user-images.githubusercontent.com/39315068/228052374-e85e37fa-d0ac-436a-9497-3851f185e4f7.png)
+![image](https://user-images.githubusercontent.com/39315068/228053011-54ba6da5-8e21-41f9-9c84-58f2a8c8a301.png)
 
 Episode Ratings
 
-![image](https://user-images.githubusercontent.com/39315068/227069035-ba5b1324-3a90-41e6-a14e-b432ff75e7d3.png)
+![image](https://user-images.githubusercontent.com/39315068/228053065-9f1a81ee-ddf9-457f-8132-0703d2104913.png)
 
 Season Ratings
 
-![image](https://user-images.githubusercontent.com/39315068/227069005-5aa657f8-ffdb-4cc3-bc95-ca1dcf34c1a1.png)
+![image](https://user-images.githubusercontent.com/39315068/228053112-13edc762-df58-4b26-b68f-88b103c80da5.png)
 
 # How to Run
 
