@@ -5,6 +5,7 @@ import time
 from datetime import datetime, timedelta
 import pytz
 from dateutil import parser
+import operator
 
 # Load configuration from config.json file
 config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.json')
@@ -41,8 +42,18 @@ movie_ratings_url = f"https://api.trakt.tv/users/{trakt_username}/ratings/movies
 season_ratings_url = f"https://api.trakt.tv/users/{trakt_username}/ratings/seasons"
 show_ratings_url = f"https://api.trakt.tv/users/{trakt_username}/ratings/shows"
 
+# Cache for storing sent notifications
+sent_notifications = set()
+
 def send_show_notification(title, description, trakt_url, show_title, tmdb_id, show_slug, imdb_id, trakt_id):
     
+    # Check if notification has already been sent
+    if trakt_url in sent_notifications:
+        return
+    
+    # Add trakt_url to sent_notifications set
+    sent_notifications.add(trakt_url)
+
     # Search for show or movie by title
     search_params = {
         "api_key": api_key,
@@ -89,7 +100,7 @@ def send_show_notification(title, description, trakt_url, show_title, tmdb_id, s
 
     embed = {
         "title": title,
-        "color": 13506070,
+        "color": 1033699,
         "timestamp": datetime.utcnow().isoformat(),
         "author": {
             "name": author_name,
@@ -131,6 +142,13 @@ def send_show_notification(title, description, trakt_url, show_title, tmdb_id, s
     requests.post(webhook_url, json=payload).headers
 
 def send_episode_notification(title, description, episode_slug, season, episode_number, trakt_url, show_title, tmdb_id, imdb_id):
+    
+    # Check if notification has already been sent
+    if trakt_url in sent_notifications:
+        return
+    
+    # Add trakt_url to sent_notifications set
+    sent_notifications.add(trakt_url)
     
     # Search for show or movie by title
     search_params = {
@@ -178,7 +196,7 @@ def send_episode_notification(title, description, episode_slug, season, episode_
 
     embed = {
         "title": title,
-        "color": 13506070,
+        "color": 16759065,
         "timestamp": datetime.utcnow().isoformat(),
         "author": {
             "name": author_name,
@@ -220,6 +238,13 @@ def send_episode_notification(title, description, episode_slug, season, episode_
     requests.post(webhook_url, json=payload)
 
 def send_season_notification(title, description, trakt_url, show_title, tmdb_id, season_number, season_slug, imdb_id):
+    
+    # Check if notification has already been sent
+    if trakt_url in sent_notifications:
+        return
+    
+    # Add trakt_url to sent_notifications set
+    sent_notifications.add(trakt_url)
     
     # Search for show or movie by title
     search_params = {
@@ -270,7 +295,7 @@ def send_season_notification(title, description, trakt_url, show_title, tmdb_id,
 
     embed = {
         "title": title,
-        "color": 13506070,
+        "color": 15840169,
         "timestamp": datetime.utcnow().isoformat(),
         "author": {
             "name": author_name,
@@ -312,6 +337,13 @@ def send_season_notification(title, description, trakt_url, show_title, tmdb_id,
     requests.post(webhook_url, json=payload)
 
 def send_movie_notification(title, description, movie_title, movie_year, trakt_url, tmdb_id, movie_slug, imdb_id):
+    
+    # Check if notification has already been sent
+    if trakt_url in sent_notifications:
+        return
+    
+    # Add trakt_url to sent_notifications set
+    sent_notifications.add(trakt_url)
     
     # Search for show or movie by title
     search_params = {
@@ -359,7 +391,7 @@ def send_movie_notification(title, description, movie_title, movie_year, trakt_u
 
     embed = {
         "title": title,
-        "color": 13506070,
+        "color": 34681,
         "timestamp": datetime.utcnow().isoformat(),
         "author": {
             "name": author_name,
@@ -446,6 +478,7 @@ def get_recent_ratings():
     
     # Parse JSON response for show ratings
     show_data = json.loads(show_response.text)
+    show_data.sort(key=operator.itemgetter("rated_at"))  # Sort show ratings by "rated_at" timestamp
     for show in show_data:
         rating_time = parser.parse(show["rated_at"]).astimezone(timezone)
         if current_time - rating_time <= timedelta(minutes=1):
@@ -462,6 +495,7 @@ def get_recent_ratings():
 
     # Parse JSON response for episode ratings
     episode_data = json.loads(episode_response.text)
+    episode_data.sort(key=operator.itemgetter("rated_at"))  # Sort episode ratings by "rated_at" timestamp
     for episode in episode_data:
         rating_time = parser.parse(episode["rated_at"]).astimezone(timezone)
         if current_time - rating_time <= timedelta(minutes=1):
@@ -481,6 +515,7 @@ def get_recent_ratings():
             
     # Parse JSON response for season ratings
     season_data = json.loads(season_response.text)
+    season_data.sort(key=operator.itemgetter("rated_at"))  # Sort season ratings by "rated_at" timestamp
     for season in season_data:
         rating_time = parser.parse(season["rated_at"]).astimezone(timezone)
         if current_time - rating_time <= timedelta(minutes=1):
@@ -497,6 +532,7 @@ def get_recent_ratings():
 
     # Parse JSON response for movie ratings
     movie_data = json.loads(movie_response.text)
+    movie_data.sort(key=operator.itemgetter("rated_at"))  # Sort movie ratings by "rated_at" timestamp
     for movie in movie_data:
         rating_time = parser.parse(movie["rated_at"]).astimezone(timezone)
         if current_time - rating_time <= timedelta(minutes=1):
